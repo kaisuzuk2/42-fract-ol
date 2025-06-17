@@ -6,7 +6,7 @@
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 15:20:58 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/06/17 13:53:41 by kaisuzuk         ###   ########.fr       */
+/*   Updated: 2025/06/17 19:22:36 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 
 # include "mlx.h"
 # include <math.h>
+# include <stdlib.h>
+
+// 取り急ぎ定義　この値が正確なものか後で要確認
+# define X_MIN -2.0
+# define X_MAX 2.0
+# define Y_MIN -1.5
+# define Y_MAX 1.5
 
 typedef struct s_window
 {
