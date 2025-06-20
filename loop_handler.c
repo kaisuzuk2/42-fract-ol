@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   event_handler.c                                    :+:      :+:    :+:   */
+/*   loop_handler.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/19 11:33:50 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/06/20 15:58:24 by kaisuzuk         ###   ########.fr       */
+/*   Created: 2025/06/20 12:20:25 by kaisuzuk          #+#    #+#             */
+/*   Updated: 2025/06/20 15:52:02 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int event_handler(t_window *win)
+int loop_handler(void *param)
 {
-	mlx_destroy_window(win->mlx, win->mlx_win);
-	exit(0);
+	t_data *data = (t_data *)param;
+
+	render_mandelbrot(&data->win, &data->img, 300 + log(data->win.zoom) * 50); // logになるようにしよう　倍率に応じて倍倍になっていくようにね
+	return (0);
 }

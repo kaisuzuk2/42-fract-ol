@@ -6,12 +6,16 @@
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 15:20:58 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/06/19 15:28:37 by kaisuzuk         ###   ########.fr       */
+/*   Updated: 2025/06/20 16:26:30 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
+
+typedef int		bool;
+# define TRUE 1
+# define FALSE 0
 
 # include "mlx.h"
 # include <X11/keysym.h> // xライブラリのキーなどの定義 ->mlxが抽象化しているので、直接読み込むのを避けよう
@@ -30,6 +34,11 @@
 # define BUTTON_PRESS_MASK 1L << 2
 # define BUTTON_RELEASE 5 // zoom out
 # define BUTTON_RELEASE_MASK 1L << 3
+/*arrow*/
+# define XK_RIGHT 0xff53
+# define XK_LEFT 0xff51
+# define XK_UP 0xff52
+# define XK_DOWN 0xff54
 
 typedef struct s_window
 {
@@ -38,8 +47,6 @@ typedef struct s_window
 	int			width;
 	int			height;
 	double		zoom;
-	double		offset_x;
-	double		offset_y;
 	double		x_min;
 	double		x_max;
 	double		y_min;
@@ -57,8 +64,8 @@ typedef struct s_img
 
 typedef struct s_data
 {
-	t_window	*win;
-	t_img		*img;
+	t_window	win;
+	t_img		img;
 }				t_data;
 
 typedef struct s_complex
@@ -68,13 +75,16 @@ typedef struct s_complex
 }				t_complex;
 
 // イベント
-int				esc_key_event(int keycode, t_window *win);
-int				close_window_event(t_window *win);
+int				key_handler(int keycde, void *param);
+int				event_handler(t_window *win);
 int				mouse_handler(int button, int x, int y, void *param);
+int				loop_handler(void *param);
 
 // 描画処理
 t_complex		pixel_to_complex(t_window const *win, int x, int y);
-void			render_mandelbrot(t_window const *win, t_img *img);
+void			render_mandelbrot(t_window const *win, t_img *img,
+					int max_iter);
+
 // ズーム処理
 void			update_viewport(t_window *win);
 

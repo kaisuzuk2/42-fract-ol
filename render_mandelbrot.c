@@ -6,7 +6,7 @@
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:29:47 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/06/19 18:05:17 by kaisuzuk         ###   ########.fr       */
+/*   Updated: 2025/06/20 11:51:07 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	color_put(t_img *img, int x, int y, int iter)
 		my_mlx_pixel_put(img, x, y, (iter * 0x0F0F0F)); //発散回数に合わせて色を決めているね　具体的な意味がわからんね
 }
 
-void	render_mandelbrot(t_window const *win, t_img *img)
+void	render_mandelbrot(t_window const *win, t_img *img, int max_iter)
 {
 	int x;
 	int y;
@@ -60,7 +60,7 @@ void	render_mandelbrot(t_window const *win, t_img *img)
 		x = 0;
 		while (x < win->width)
 		{
-			iter = mandelbrot_iter_count(pixel_to_complex(win, x, y), 300);
+			iter = mandelbrot_iter_count(pixel_to_complex(win, x, y), max_iter);
 			color_put(img, x, y, iter);
 			x++;
 		}

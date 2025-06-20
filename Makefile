@@ -6,7 +6,7 @@
 #    By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/17 13:27:30 by kaisuzuk          #+#    #+#              #
-#    Updated: 2025/06/19 15:27:05 by kaisuzuk         ###   ########.fr        #
+#    Updated: 2025/06/20 12:22:11 by kaisuzuk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ SRCS=init.c \
 	render_mandelbrot.c \
 	key_handler.c \
 	event_handler.c \
-	mouse_handler.c
+	mouse_handler.c \
+	loop_handler.c
 # OBJS=$(SRCS:%.c=%.o)
 
 all: $(NAME)
