@@ -6,7 +6,7 @@
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 21:34:10 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/06/20 17:56:46 by kaisuzuk         ###   ########.fr       */
+/*   Updated: 2025/06/21 17:29:31 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ int key_handler(int keycode, void *param)
 	data = (t_data *)param;
 	esc_key_event(keycode, &data->win);
 	arrow_event(keycode, &data->win);
-	render_mandelbrot(&data->win, &data->img, 300);
+	data->f(&data->win, &data->img, 300);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 15:20:58 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/06/20 16:26:30 by kaisuzuk         ###   ########.fr       */
+/*   Updated: 2025/06/21 17:31:59 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_data
 {
 	t_window	win;
 	t_img		img;
+	void (*f)(t_window *, t_img *, int);
 }				t_data;
 
 typedef struct s_complex
@@ -81,9 +82,11 @@ int				mouse_handler(int button, int x, int y, void *param);
 int				loop_handler(void *param);
 
 // 描画処理
+void			my_mlx_pixel_put(t_img *img, int x, int y, int color);
 t_complex		pixel_to_complex(t_window const *win, int x, int y);
-void			render_mandelbrot(t_window const *win, t_img *img,
+void			mandelbrot(t_window *win, t_img *img,
 					int max_iter);
+void			julia(t_window *win, t_img *img, int max_iter);
 
 // ズーム処理
 void			update_viewport(t_window *win);

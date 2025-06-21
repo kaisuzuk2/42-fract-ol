@@ -6,7 +6,7 @@
 #    By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/17 13:27:30 by kaisuzuk          #+#    #+#              #
-#    Updated: 2025/06/21 14:09:28 by kaisuzuk         ###   ########.fr        #
+#    Updated: 2025/06/21 17:20:38 by kaisuzuk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,38 +16,43 @@ DEBUG = -g -fsanitize=address
 FLAG = -Wall -Werror -Wextra -I/usr/include/
 MAKE = make -C
 
-FT = libft
-FT_LIB = $(FT) + .a
 FT_DIR = ./libft
+FT_LIB = libft.a
+FT_INC = -I$(FT_DIR)
 
 MINILIB = minilibx-linux
+MINILIB_INC = -I$(MINILIB)
+MINILIB_LIB = -L$(MINILIB) -lmlx_Linux -lXext -lX11 -lm
 
 SRCS=init.c \
 	render.c\
-	render_mandelbrot.c \
+	mandelbrot.c \
+	julia.c \
 	key_handler.c \
 	event_handler.c \
 	mouse_handler.c \
 	loop_handler.c
-# OBJS=$(SRCS:%.c=%.o)
+
+OBJS=$(SRCS:%.c=%.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(FT)
-	$(MAKE) ./$(MINILIB)
-	$(CC) $(FLAG) -o $(NAME) $(DEBUG) main.c $(SRCS) -I$(MINILIB) -L$(MINILIB) -lmlx_Linux -lXext -lX11 -lm -L$(FT) -lft
+$(NAME): $(OBJS) 
+	$(MAKE) $(FT_DIR)
+	$(MAKE) $(MINILIB)
+	$(CC) $(FLAG) -o $(NAME) $(DEBUG) main.c $(OBJS) $(FT_INC)  $(MINILIB_INC) -L$(FT_DIR) -lft $(MINILIB_LIB)
 
 %.o: %.c
-	$(CC) $(FLAG) -c -o $@ $<
+	$(CC) $(FLAG) $(MINILIB_INC) -c $< -o $@
 
-$(FT):
-	$(MAKE) $(FT_DIR)
-
-clean: 
-	$(MAKE) ./$(LIMILIB) clean
-	
+clean:
+	$(MAKE) $(FT_DIR) clean
+	$(MAKE) $(MINILIB) clean
+	rm -rf $(OBJS)
+		
 fclean: clean	
 	rm -rf $(NAME)
+	$(MAKE) $(FT_DIR) fclean
 
 re: fclean all
 

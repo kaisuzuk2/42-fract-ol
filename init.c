@@ -6,7 +6,7 @@
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 14:12:47 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/06/21 13:39:47 by kaisuzuk         ###   ########.fr       */
+/*   Updated: 2025/06/21 17:28:45 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,6 @@ bool	init(t_data *data)
 {
 	win_init(&data->win);
 	img_init(data);
+	data->f = julia;
 	return (TRUE);
 }

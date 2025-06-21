@@ -6,7 +6,7 @@
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 21:34:14 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/06/20 16:09:59 by kaisuzuk         ###   ########.fr       */
+/*   Updated: 2025/06/21 17:30:04 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void zoom(t_data *data, double scale_per, int x, int y)
 	win->y_min = win->y_max - new_height;
 	
 	
-	render_mandelbrot(win, &data->img, 50);
+	data->f(win, &data->img, 50);
 }
 
 int mouse_handler(int button, int x, int y, void *param)
