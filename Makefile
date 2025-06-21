@@ -6,15 +6,22 @@
 #    By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/17 13:27:30 by kaisuzuk          #+#    #+#              #
-#    Updated: 2025/06/20 12:22:11 by kaisuzuk         ###   ########.fr        #
+#    Updated: 2025/06/21 14:09:28 by kaisuzuk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME=fractol
-CC=cc
-DEBUG=-g -fsanitize=address
-FLAG=-Wall -Werror -Wextra -I/usr/include/
-MAKE=make -C
+NAME = fractol
+CC = cc
+DEBUG = -g -fsanitize=address
+FLAG = -Wall -Werror -Wextra -I/usr/include/
+MAKE = make -C
+
+FT = libft
+FT_LIB = $(FT) + .a
+FT_DIR = ./libft
+
+MINILIB = minilibx-linux
+
 SRCS=init.c \
 	render.c\
 	render_mandelbrot.c \
@@ -26,16 +33,18 @@ SRCS=init.c \
 
 all: $(NAME)
 
-$(NAME): $(OBJS) 
-	$(MAKE) ./minilibx-linux
-	# cp ./minilibx-linux/libmlx_Linux.a .
-	$(CC) $(FLAG) -o $(NAME) $(DEBUG) main.c $(SRCS) -Iminilibx-linux -Lminilibx-linux -lmlx_Linux -lXext -lX11 -lm
+$(NAME): $(OBJS) $(FT)
+	$(MAKE) ./$(MINILIB)
+	$(CC) $(FLAG) -o $(NAME) $(DEBUG) main.c $(SRCS) -I$(MINILIB) -L$(MINILIB) -lmlx_Linux -lXext -lX11 -lm -L$(FT) -lft
 
 %.o: %.c
 	$(CC) $(FLAG) -c -o $@ $<
 
+$(FT):
+	$(MAKE) $(FT_DIR)
+
 clean: 
-	$(MAKE) ./minilibx-linux clean
+	$(MAKE) ./$(LIMILIB) clean
 	
 fclean: clean	
 	rm -rf $(NAME)
