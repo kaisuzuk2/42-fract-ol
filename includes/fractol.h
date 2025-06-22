@@ -6,7 +6,7 @@
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 15:20:58 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/06/22 20:34:24 by kaisuzuk         ###   ########.fr       */
+/*   Updated: 2025/06/23 00:30:16 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_window
 	double		x_max;
 	double		y_min;
 	double		y_max;
+	char		*title;
 }				t_window;
 
 typedef struct s_img
@@ -85,6 +86,9 @@ int				key_handler(int keycde, void *param);
 int				event_handler(t_data *data);
 int				mouse_handler(int button, int x, int y, void *param);
 int				loop_handler(void *param);
+
+# define MIN_ITER 30
+# define MAX_ITER 100
 
 // 描画処理
 void			buf_mlx_pixel_put(t_img *img, int x, int y, int color);

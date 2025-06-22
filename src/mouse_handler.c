@@ -6,7 +6,7 @@
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 21:34:14 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/06/22 19:00:15 by kaisuzuk         ###   ########.fr       */
+/*   Updated: 2025/06/23 00:51:22 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,21 @@ static void	zoom(t_data *data, double scale_per, int x, int y)
 	data->win.x_max = data->win.x_min + new_width;
 	data->win.y_max = new_height * raito_y + mouse.imag;
 	data->win.y_min = data->win.y_max - new_height;
-	render(data, 30);
 }
 
 int	mouse_handler(int button, int x, int y, void *param)
 {
+	int iter;
+	t_data *data;
+	
+	data = (t_data *)param;
 	if (button == BUTTON_PRESS)
 		zoom(param, 1.1, x, y);
 	else if (button == BUTTON_RELEASE)
 		zoom(param, 0.9, x, y);
+	iter = MIN_ITER + log(data->win.zoom) * 10;
+	if (iter >= MAX_ITER)
+		iter = MAX_ITER;
+	render(data, iter);
 	return (0);
 }

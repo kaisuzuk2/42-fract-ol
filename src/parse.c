@@ -6,7 +6,7 @@
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 17:40:21 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/06/22 20:29:52 by kaisuzuk         ###   ########.fr       */
+/*   Updated: 2025/06/22 23:46:10 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ t_bool	parse(int argc, char *argv[], t_data *data)
 		data->f = mandelbrot;
 		data->z0.real = 0;
 		data->z0.imag = 0;
+		data->win.title = "mandelbrot";
 	}
 	else if (!ft_strcmp(argv[1], "j") && argc == 4)
 	{
@@ -59,6 +60,7 @@ t_bool	parse(int argc, char *argv[], t_data *data)
 		data->f = julia;
 		data->z0.real = ft_atof(argv[2]);
 		data->z0.imag = ft_atof(argv[3]);
+		data->win.title = "julia";
 	}
 	else
 		return (print_usage(), FALSE);

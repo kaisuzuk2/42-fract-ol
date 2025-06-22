@@ -6,14 +6,14 @@
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 15:21:33 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/06/22 20:33:33 by kaisuzuk         ###   ########.fr       */
+/*   Updated: 2025/06/22 20:43:05 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include <stdio.h>
 
-bool	init(t_data *data);
+t_bool	init(t_data *data);
 
 int	main(int argc, char *argv[])
 {
@@ -32,6 +32,4 @@ int	main(int argc, char *argv[])
 	mlx_hook(win->mlx_win, DESTROY_NOTIFY, 0L, event_handler, win);
 	mlx_mouse_hook(win->mlx_win, mouse_handler, &data);
 	mlx_loop(win->mlx);
-	mlx_destroy_image(win->mlx, img->img);
-	mlx_destroy_window(win->mlx, win->mlx_win);
 }

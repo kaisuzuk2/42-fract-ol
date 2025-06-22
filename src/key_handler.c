@@ -6,7 +6,7 @@
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 21:34:10 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/06/22 20:21:40 by kaisuzuk         ###   ########.fr       */
+/*   Updated: 2025/06/23 00:53:57 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static void	esc_key_event(int keycode, t_data *data)
 	{
 		mlx_destroy_image(data->win.mlx, data->img.img);
 		mlx_destroy_window(data->win.mlx, data->win.mlx_win);
+		mlx_destroy_display(data->win.mlx);
+		free(data->win.mlx);
 		exit(0);
 	}
 }
@@ -51,10 +53,14 @@ static void	arrow_event(int keycode, t_window *win)
 int	key_handler(int keycode, void *param)
 {
 	t_data	*data;
+	int iter;
 
 	data = (t_data *)param;
 	esc_key_event(keycode, data);
 	arrow_event(keycode, &data->win);
-	render(data, 30);
+	iter = MIN_ITER + log(data->win.zoom) * 10;
+	if (iter >= MAX_ITER)
+		iter = MAX_ITER;
+	render(data, iter);
 	return (0);
 }

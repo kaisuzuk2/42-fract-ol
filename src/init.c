@@ -6,21 +6,24 @@
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 14:12:47 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/06/22 20:30:16 by kaisuzuk         ###   ########.fr       */
+/*   Updated: 2025/06/22 23:45:26 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+#define WIDTH 500
+#define HEIGHT 500
+
 static t_bool	win_init(t_window *win)
 {
-	win->width = 500;
-	win->height = 500;
+	win->width = WIDTH;
+	win->height = HEIGHT;
 	win->zoom = 1.0;
 	win->mlx = mlx_init();
 	if (!win->mlx)
 		return (FALSE);
-	win->mlx_win = mlx_new_window(win->mlx, win->width, win->height, "test");
+	win->mlx_win = mlx_new_window(win->mlx, win->width, win->height, win->title);
 	if (!win->mlx_win)
 		return (FALSE);
 	return (TRUE);
