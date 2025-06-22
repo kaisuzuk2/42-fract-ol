@@ -6,7 +6,7 @@
 #    By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/17 13:27:30 by kaisuzuk          #+#    #+#              #
-#    Updated: 2025/06/21 17:20:38 by kaisuzuk         ###   ########.fr        #
+#    Updated: 2025/06/21 19:38:18 by kaisuzuk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,15 +16,16 @@ DEBUG = -g -fsanitize=address
 FLAG = -Wall -Werror -Wextra -I/usr/include/
 MAKE = make -C
 
-FT_DIR = ./libft
-FT_LIB = libft.a
-FT_INC = -I$(FT_DIR)
+FT_DIR = ./libftprintf
+FT_LIB = libftprintf.a
+FT_INC = -I$(FT_DIR)/includes -I./libftprintf/libft
 
 MINILIB = minilibx-linux
 MINILIB_INC = -I$(MINILIB)
 MINILIB_LIB = -L$(MINILIB) -lmlx_Linux -lXext -lX11 -lm
 
 SRCS=init.c \
+	parse.c \
 	render.c\
 	mandelbrot.c \
 	julia.c \
@@ -40,10 +41,10 @@ all: $(NAME)
 $(NAME): $(OBJS) 
 	$(MAKE) $(FT_DIR)
 	$(MAKE) $(MINILIB)
-	$(CC) $(FLAG) -o $(NAME) $(DEBUG) main.c $(OBJS) $(FT_INC)  $(MINILIB_INC) -L$(FT_DIR) -lft $(MINILIB_LIB)
+	$(CC) $(FLAG) -o $(NAME) $(DEBUG) main.c $(OBJS) $(FT_INC)  $(MINILIB_INC) -L$(FT_DIR) -lftprintf $(MINILIB_LIB)
 
 %.o: %.c
-	$(CC) $(FLAG) $(MINILIB_INC) -c $< -o $@
+	$(CC) $(FLAG) $(MINILIB_INC) $(FT_INC) -c $< -o $@
 
 clean:
 	$(MAKE) $(FT_DIR) clean

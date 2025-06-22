@@ -6,7 +6,7 @@
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:29:47 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/06/21 17:30:53 by kaisuzuk         ###   ########.fr       */
+/*   Updated: 2025/06/21 23:46:44 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static int	mandelbrot_iter_count(t_complex const z, int max_iter)
 	iter = 0;
 	while (x * x + y * y <= 4.0 && iter < max_iter)
 	{
-		x_tmp = x * x - y * y + z.a;
-		y = 2 * x * y + z.bi;
+		x_tmp = x * x - y * y + z.real;
+		y = 2 * x * y + z.imag;
 		x = x_tmp;
 		iter++;
 	}
@@ -70,23 +70,23 @@ void color_put(t_img *img, int x, int y, int iter, int max_iter)
 }
 
 
-void	mandelbrot(t_window *win, t_img *img, int max_iter)
+void	mandelbrot(t_data *data, int max_iter)
 {
 	int x;
 	int y;
 	int iter;
 
 	y = 0;
-	while (y < win->height)
+	while (y < data->win.height)
 	{
 		x = 0;
-		while (x < win->width)
+		while (x < data->win.width)
 		{
-			iter = mandelbrot_iter_count(pixel_to_complex(win, x, y), max_iter);
-			color_put(img, x, y, iter, max_iter);
+			iter = mandelbrot_iter_count(pixel_to_complex(&data->win, x, y), max_iter);
+			color_put(&data->img, x, y, iter, max_iter);
 			x++;
 		}
 		y++;
 	}
-	mlx_put_image_to_window(win->mlx, win->mlx_win, img->img, 0, 0);
+	mlx_put_image_to_window(data->win.mlx, data->win.mlx_win, data->img.img, 0, 0);
 }

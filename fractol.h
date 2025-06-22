@@ -6,7 +6,7 @@
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 15:20:58 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/06/21 17:31:59 by kaisuzuk         ###   ########.fr       */
+/*   Updated: 2025/06/21 20:14:07 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ typedef int		bool;
 # define FALSE 0
 
 # include "mlx.h"
-# include <X11/keysym.h> // xライブラリのキーなどの定義 ->mlxが抽象化しているので、直接読み込むのを避けよう
+# include "ft_printf.h"
 # include <math.h>
 # include <stdlib.h>
+
 
 /*close_window*/
 # define DESTROY_NOTIFY 17
@@ -62,18 +63,20 @@ typedef struct s_img
 	int			endian;
 }				t_img;
 
+typedef struct s_complex
+{
+	double		real;
+	double		imag;
+}				t_complex;
+
+
 typedef struct s_data
 {
 	t_window	win;
 	t_img		img;
-	void (*f)(t_window *, t_img *, int);
+	void		(*f)(struct s_data *, int);
+	t_complex	c;
 }				t_data;
-
-typedef struct s_complex
-{
-	double		a;
-	double		bi;
-}				t_complex;
 
 // イベント
 int				key_handler(int keycde, void *param);
@@ -84,11 +87,13 @@ int				loop_handler(void *param);
 // 描画処理
 void			my_mlx_pixel_put(t_img *img, int x, int y, int color);
 t_complex		pixel_to_complex(t_window const *win, int x, int y);
-void			mandelbrot(t_window *win, t_img *img,
-					int max_iter);
-void			julia(t_window *win, t_img *img, int max_iter);
+void			mandelbrot(t_data *, int max_iter);
+void			julia(t_data *, int max_iter);
 
 // ズーム処理
 void			update_viewport(t_window *win);
+
+// 入力チェック
+bool			parse(int argc, char *argv[], t_data *data);
 
 #endif

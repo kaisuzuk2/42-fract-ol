@@ -6,7 +6,7 @@
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 21:34:14 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/06/21 17:30:04 by kaisuzuk         ###   ########.fr       */
+/*   Updated: 2025/06/21 20:22:55 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ void zoom(t_data *data, double scale_per, int x, int y)
 	raito_x = x / (double)win->width;
 	raito_y = y / (double)win->height;
 
-	win->x_min = mouse.a - raito_x * new_width;
+	win->x_min = mouse.real - raito_x * new_width;
 	win->x_max = win->x_min + new_width;
 
-	win->y_max = new_height * raito_y + mouse.bi;
+	win->y_max = new_height * raito_y + mouse.imag;
 	win->y_min = win->y_max - new_height;
 	
 	
-	data->f(win, &data->img, 50);
+	data->f(data, 50);
 }
 
 int mouse_handler(int button, int x, int y, void *param)

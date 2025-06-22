@@ -6,7 +6,7 @@
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 15:33:43 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/06/21 17:31:01 by kaisuzuk         ###   ########.fr       */
+/*   Updated: 2025/06/21 20:20:25 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ static int julia_iter_count(t_complex z, t_complex c, int max_iter)
 	int iter = 0;
 	double tmp;
 
-	while (z.a * z.a + z.bi * z.bi < 4.0 && iter < max_iter)
+	while (z.real * z.real + z.imag * z.imag < 4.0 && iter < max_iter)
 	{
-		tmp = z.a * z.a - z.bi * z.bi + c.a;
-		z.bi = 2.0 * z.a * z.bi + c.bi;
-		z.a = tmp;
+		tmp = z.real * z.real - z.imag * z.imag + c.real;
+		z.imag = 2.0 * z.real * z.imag + c.imag;
+		z.real = tmp;
 		iter++;
 	}
 	return iter;
@@ -56,28 +56,23 @@ static void color_put(t_img *img, int x, int y, int iter, int max_iter)
 }
 
 
-void julia(t_window *win, t_img *img, int max_iter)
+void julia(t_data *data, int max_iter)
 {
-	int a;
-	int b;
+	int real;
+	int imag;
 	int iter;
-	t_complex c;
-
-
-	c.a = -0.8;
-	c.bi = 0.156;
-
-	b = 0;
-	while (b < win->height)
+	
+	imag = 0;
+	while (imag < data->win.height)
 	{
-		a = 0;
-		while (a < win->width)
+		real = 0;
+		while (real < data->win.width)
 		{
-			iter = julia_iter_count(pixel_to_complex(win, a, b), c, max_iter);
-			color_put(img, a, b, iter, max_iter);
-			a++;
+			iter = julia_iter_count(pixel_to_complex(&data->win, real, imag), data->c, max_iter);
+			color_put(&data->img, real, imag, iter, max_iter);
+			real++;
 		}
-		b++;
+		imag++;
 	}
-	mlx_put_image_to_window(win->mlx, win->mlx_win, img->img, 0, 0);
+	mlx_put_image_to_window(data->win.mlx, data->win.mlx_win, data->img.img, 0, 0);
 }
