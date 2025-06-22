@@ -6,7 +6,7 @@
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 15:33:43 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/06/21 20:20:25 by kaisuzuk         ###   ########.fr       */
+/*   Updated: 2025/06/22 14:09:50 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,35 +26,6 @@ static int julia_iter_count(t_complex z, t_complex c, int max_iter)
 	}
 	return iter;
 }
-
-
-static int rgb(int r, int g, int b)
-{
-	return (((r & 0xff) << 16) | ((g & 0xff) << 8) | (b & 0xff));
-}
-
-static int cr(int n)
-{
-	n = n % 256;
-	return (n * (256 - n)) / 65;
-}
-
-static void color_put(t_img *img, int x, int y, int iter, int max_iter)
-{
-	int color;
-
-	if (iter == max_iter)
-		color = rgb(0, 0, 0);
-	else
-	{
-		int r = cr(iter);
-		int g = cr(iter * 2);
-		int b = cr(iter * 3);
-		color = rgb(r, g, b);
-	}
-	my_mlx_pixel_put(img, x, y, color);
-}
-
 
 void julia(t_data *data, int max_iter)
 {

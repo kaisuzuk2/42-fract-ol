@@ -6,7 +6,7 @@
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 15:20:58 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/06/21 20:14:07 by kaisuzuk         ###   ########.fr       */
+/*   Updated: 2025/06/22 14:09:35 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,10 @@ typedef int		bool;
 # define TRUE 1
 # define FALSE 0
 
-# include "mlx.h"
 # include "ft_printf.h"
+# include "mlx.h"
 # include <math.h>
 # include <stdlib.h>
-
 
 /*close_window*/
 # define DESTROY_NOTIFY 17
@@ -69,7 +68,6 @@ typedef struct s_complex
 	double		imag;
 }				t_complex;
 
-
 typedef struct s_data
 {
 	t_window	win;
@@ -89,6 +87,7 @@ void			my_mlx_pixel_put(t_img *img, int x, int y, int color);
 t_complex		pixel_to_complex(t_window const *win, int x, int y);
 void			mandelbrot(t_data *, int max_iter);
 void			julia(t_data *, int max_iter);
+void			color_put(t_img *img, int x, int y, int iter, int max_iter);
 
 // ズーム処理
 void			update_viewport(t_window *win);
