@@ -6,7 +6,7 @@
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 15:21:33 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/06/21 19:48:48 by kaisuzuk         ###   ########.fr       */
+/*   Updated: 2025/06/22 13:44:10 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int argc, char *argv[])
 	if (!parse(argc, argv, &data))
 		return (0);
 	if (!init(&data))
-		return (0); // 適宜エラー処理
+		return (0);
 	win = &data.win;
 	img = &data.img;
 
@@ -34,4 +34,7 @@ int	main(int argc, char *argv[])
 	mlx_mouse_hook(win->mlx_win, mouse_handler, &data);
 
 	mlx_loop(win->mlx);
+	
+	mlx_destroy_image(win->mlx, img->img);
+	mlx_destroy_window(win->mlx, win->mlx_win);
 }
