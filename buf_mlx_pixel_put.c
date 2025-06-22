@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   event_handler.c                                    :+:      :+:    :+:   */
+/*   buf_mlx_pixel_put.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/19 11:33:50 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/06/22 17:37:39 by kaisuzuk         ###   ########.fr       */
+/*   Created: 2025/06/22 15:17:53 by kaisuzuk          #+#    #+#             */
+/*   Updated: 2025/06/22 15:20:58 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int event_handler(t_data *data)
+void	buf_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
-	mlx_destroy_image(data->win.mlx, data->img.img);
-	mlx_destroy_window(data->win.mlx, data->win.mlx_win);
-	exit(0);
+	char *dst;
+
+	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
 }

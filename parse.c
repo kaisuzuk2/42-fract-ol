@@ -6,7 +6,7 @@
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 17:40:21 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/06/22 14:05:49 by kaisuzuk         ###   ########.fr       */
+/*   Updated: 2025/06/22 16:36:52 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,16 @@ bool	parse(int argc, char *argv[], t_data *data)
 	if (!ft_strcmp(argv[1], "m") && argc == 2)
 	{
 		data->f = mandelbrot;
-		data->c.real = 0;
-		data->c.imag = 0;
+		data->z0.real = 0;
+		data->z0.imag = 0;
 	}
 	else if (!ft_strcmp(argv[1], "j") && argc == 4)
 	{
 		if (!check_num(argv[2]) || !check_num(argv[3]))
 			return (print_usage(), FALSE);
 		data->f = julia;
-		data->c.real = ft_atof(argv[2]);
-		data->c.imag = ft_atof(argv[3]);
+		data->z0.real = ft_atof(argv[2]);
+		data->z0.imag = ft_atof(argv[3]);
 	}
 	else
 		return (print_usage(), FALSE);

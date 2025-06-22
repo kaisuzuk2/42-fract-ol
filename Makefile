@@ -6,7 +6,7 @@
 #    By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/17 13:27:30 by kaisuzuk          #+#    #+#              #
-#    Updated: 2025/06/21 19:38:18 by kaisuzuk         ###   ########.fr        #
+#    Updated: 2025/06/22 17:39:46 by kaisuzuk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,9 @@ NAME = fractol
 CC = cc
 DEBUG = -g -fsanitize=address
 FLAG = -Wall -Werror -Wextra -I/usr/include/
+
 MAKE = make -C
+RM = rm -rf
 
 FT_DIR = ./libftprintf
 FT_LIB = libftprintf.a
@@ -26,7 +28,8 @@ MINILIB_LIB = -L$(MINILIB) -lmlx_Linux -lXext -lX11 -lm
 
 SRCS=init.c \
 	parse.c \
-	render.c\
+	render.c \
+	buf_mlx_pixel_put.c \
 	mandelbrot.c \
 	julia.c \
 	key_handler.c \
@@ -41,7 +44,7 @@ all: $(NAME)
 $(NAME): $(OBJS) 
 	$(MAKE) $(FT_DIR)
 	$(MAKE) $(MINILIB)
-	$(CC) $(FLAG) -o $(NAME) $(DEBUG) main.c $(OBJS) $(FT_INC)  $(MINILIB_INC) -L$(FT_DIR) -lftprintf $(MINILIB_LIB)
+	$(CC) $(FLAG) -o $(NAME) main.c $(OBJS) $(FT_INC)  $(MINILIB_INC) -L$(FT_DIR) -lftprintf $(MINILIB_LIB)
 
 %.o: %.c
 	$(CC) $(FLAG) $(MINILIB_INC) $(FT_INC) -c $< -o $@
@@ -49,10 +52,10 @@ $(NAME): $(OBJS)
 clean:
 	$(MAKE) $(FT_DIR) clean
 	$(MAKE) $(MINILIB) clean
-	rm -rf $(OBJS)
+	$(RM) $(OBJS)
 		
 fclean: clean	
-	rm -rf $(NAME)
+	$(RM) $(NAME)
 	$(MAKE) $(FT_DIR) fclean
 
 re: fclean all

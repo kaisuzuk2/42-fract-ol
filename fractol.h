@@ -6,7 +6,7 @@
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 15:20:58 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/06/22 14:09:35 by kaisuzuk         ###   ########.fr       */
+/*   Updated: 2025/06/22 17:38:21 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,22 +72,22 @@ typedef struct s_data
 {
 	t_window	win;
 	t_img		img;
-	void		(*f)(struct s_data *, int);
-	t_complex	c;
+	int			(*f)(t_complex, t_complex, int);
+	t_complex	z0;
 }				t_data;
 
 // イベント
 int				key_handler(int keycde, void *param);
-int				event_handler(t_window *win);
+int				event_handler(t_data *data);
 int				mouse_handler(int button, int x, int y, void *param);
 int				loop_handler(void *param);
 
 // 描画処理
-void			my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void			buf_mlx_pixel_put(t_img *img, int x, int y, int color);
+int				mandelbrot(t_complex z, t_complex c, int max_iter);
+int				julia(t_complex z, t_complex c, int max_iter);
+void			render(t_data *data, int max_iter);
 t_complex		pixel_to_complex(t_window const *win, int x, int y);
-void			mandelbrot(t_data *, int max_iter);
-void			julia(t_data *, int max_iter);
-void			color_put(t_img *img, int x, int y, int iter, int max_iter);
 
 // ズーム処理
 void			update_viewport(t_window *win);
